@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Decode media
         run: |
-          base64 -d media/michael-wave.mp4.b64 > michael-wave.mp4
+          cat media/michael-wave.mp4.b64.0 media/michael-wave.mp4.b64.1 media/michael-wave.mp4.b64.2 media/michael-wave.mp4.b64.3 | base64 -d > michael-wave.mp4
           base64 -d media/michael-wave-poster.jpg.b64 > michael-wave-poster.jpg
           rm -rf media
           ls -la michael-wave.mp4 michael-wave-poster.jpg
