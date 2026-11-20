@@ -1,0 +1,30 @@
+name: Commit decoded media
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'media/**'
+      - '.github/workflows/commit-media.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  commit-media:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode and commit media
+        run: |
+          set -euo pipefail
+          cat media/michael-wave.mp4.b64.0 media/michael-wave.mp4.b64.1 media/michael-wave.mp4.b64.2 media/michael-wave.mp4.b64.3 | base64 -d > michael-wave.mp4
+          base64 -d media/michael-wave-poster.jpg.b64 > michael-wave-poster.jpg
+          ls -la michael-wave.mp4 michael-wave-poster.jpg
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add michael-wave.mp4 michael-wave-poster.jpg
+          if git diff --cached --quiet; then
+            echo "Media files already up to date"
+            exit 0
+          fi
+          git commit -m "Add decoded waving video and poster"
+          git push
