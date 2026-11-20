@@ -18,6 +18,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Decode media
+        run: |
+          base64 -d media/michael-wave.mp4.b64 > michael-wave.mp4
+          base64 -d media/michael-wave-poster.jpg.b64 > michael-wave-poster.jpg
+          rm -rf media
+          ls -la michael-wave.mp4 michael-wave-poster.jpg
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
