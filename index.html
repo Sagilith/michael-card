@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b6e7a">
+  <meta name="description" content="Michael Wunderlich, guide at SURFIT USA in Sarasota. Tip or leave a review.">
+  <title>Michael Wunderlich · SURFIT USA</title>
+  <style>
+    :root {
+      --sea-deep: #0b4f5c;
+      --sea: #0b6e7a;
+      --teal: #148a96;
+      --aqua: #2eb5c0;
+      --foam: #e7f8fa;
+      --sand: #fff8ef;
+      --ink: #12333a;
+      --muted: #4a6d73;
+      --white: #ffffff;
+      --shadow: 0 12px 32px rgba(11, 79, 92, 0.18);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 50% -10%, #7ee0ea 0%, transparent 55%),
+        linear-gradient(180deg, #147f8c 0%, #0b6e7a 38%, #083f4a 100%);
+      padding: 20px 16px 40px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    main {
+      width: min(100%, 420px);
+      margin: 0 auto;
+    }
+
+    .hero {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #0a5a66;
+      max-height: min(52vh, 420px);
+      line-height: 0;
+    }
+
+    .hero video {
+      width: 100%;
+      height: min(52vh, 420px);
+      object-fit: cover;
+      object-position: center 22%;
+      display: block;
+    }
+
+    header {
+      text-align: center;
+      color: var(--white);
+      padding: 18px 8px 16px;
+    }
+
+    header h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    header .wave {
+      font-size: 1.45rem;
+      font-weight: 400;
+    }
+
+    header p {
+      margin-top: 4px;
+      font-size: 1.02rem;
+      opacity: 0.92;
+      font-weight: 500;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .choice {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      min-height: 64px;
+      border-radius: 18px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--sea-deep);
+      background: var(--white);
+      box-shadow: var(--shadow);
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+
+    .choice[aria-pressed="true"] {
+      background: #c8f3f6;
+      box-shadow: 0 0 0 3px #8ee4ec, var(--shadow);
+    }
+
+    .choice:active { transform: scale(0.98); }
+
+    .panel {
+      display: none;
+      margin-top: 14px;
+      background: var(--sand);
+      border-radius: 22px;
+      padding: 18px 16px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel.open { display: block; }
+
+    .panel h2 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      color: var(--sea-deep);
+    }
+
+    .handle {
+      display: block;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--sea);
+      margin-bottom: 12px;
+    }
+
+    .placeholder {
+      text-align: center;
+      color: var(--muted);
+      padding: 12px 8px 4px;
+      font-size: 1.05rem;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 56px;
+      border: 0;
+      border-radius: 16px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      color: var(--white);
+      background: var(--teal);
+      margin-top: 10px;
+      box-shadow: 0 6px 16px rgba(11, 79, 92, 0.2);
+    }
+
+    .btn:active { transform: scale(0.99); }
+    .btn.secondary {
+      background: var(--white);
+      color: var(--sea-deep);
+      border: 2px solid rgba(11, 110, 122, 0.22);
+      box-shadow: none;
+    }
+    .btn.ghost {
+      background: transparent;
+      color: var(--sea);
+      box-shadow: none;
+      min-height: 48px;
+      font-weight: 600;
+    }
+
+    #qr {
+      display: flex;
+      justify-content: center;
+      margin: 4px 0 6px;
+    }
+
+    #qr img, #qr svg {
+      width: 200px;
+      height: 200px;
+      background: var(--white);
+      padding: 10px;
+      border-radius: 16px;
+    }
+
+    .review-text {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 14px 14px 12px;
+      font-size: 1rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .copied {
+      text-align: center;
+      min-height: 1.2em;
+      margin-top: 8px;
+      font-weight: 600;
+      color: var(--teal);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="hero">
+      <video
+        src="michael-wave.mp4"
+        poster="michael-wave-poster.jpg"
+        autoplay
+        muted
+        loop
+        playsinline
+        webkit-playsinline
+        preload="auto"
+      ></video>
+    </div>
+
+    <header>
+      <h1>Michael Wunderlich <span class="wave" aria-hidden="true">👋</span></h1>
+      <p>Guide · SURFIT USA</p>
+    </header>
+
+    <div class="actions">
+      <button type="button" class="choice" id="btn-tip" aria-pressed="false" aria-controls="panel-tip">Tip</button>
+      <button type="button" class="choice" id="btn-review" aria-pressed="false" aria-controls="panel-review">Review</button>
+    </div>
+
+    <section class="panel" id="panel-tip" hidden>
+      <div id="tip-body"></div>
+    </section>
+
+    <section class="panel" id="panel-review" hidden>
+      <h2>Leave a Google review</h2>
+      <a class="btn" id="type-own" href="https://search.google.com/local/writereview?placeid=ChIJJQCuPChrw4gRtsbgD5bKpnY" target="_blank" rel="noopener">Type my own</a>
+      <button type="button" class="btn secondary" id="use-suggestion">Use a suggestion</button>
+      <div id="suggestion" hidden>
+        <p class="review-text" id="review-text"></p>
+        <button type="button" class="btn" id="copy-open">Copy &amp; open Google</button>
+        <button type="button" class="btn ghost" id="another">Another one</button>
+        <p class="note">Paste it into Google’s review box and tap 5 stars.</p>
+        <p class="copied" id="copied" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="qrcode.min.js"></script>
+  <script>
+    // Change this one value to update the Venmo button, handle, and QR code.
+    const VENMO_HANDLE = "michael-wunderlich-13";
+
+    const REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJJQCuPChrw4gRtsbgD5bKpnY";
+
+    const SUGGESTIONS = [
+      "Had an amazing kayak tour with SURFIT USA in Sarasota! Our guide Michael was friendly, knowledgeable, and made the whole trip easy and fun. Highly recommend paddling with him if you’re looking for a great day on the water.",
+      "Michael led a fantastic paddleboard tour with SURFIT USA. He was warm, patient, and really knew the area — we saw so much and felt well taken care of the entire time. One of the highlights of our visit to Sarasota.",
+      "We booked a kayak and paddleboard outing with SURFIT USA and couldn’t have asked for a better guide. Michael was so friendly and clearly knows these waters well. A beautiful, relaxed tour we’d do again in a heartbeat."
+    ];
+
+    const video = document.querySelector("video");
+    if (video) {
+      video.muted = true;
+      video.setAttribute("playsinline", "");
+      video.play().catch(function () {});
+    }
+
+    const tipBtn = document.getElementById("btn-tip");
+    const reviewBtn = document.getElementById("btn-review");
+    const tipPanel = document.getElementById("panel-tip");
+    const reviewPanel = document.getElementById("panel-review");
+    const tipBody = document.getElementById("tip-body");
+    const suggestionBox = document.getElementById("suggestion");
+    const reviewTextEl = document.getElementById("review-text");
+    const copiedEl = document.getElementById("copied");
+    let suggestionIndex = 0;
+
+    function showPanel(which) {
+      const showTip = which === "tip";
+      const showReview = which === "review";
+      tipPanel.classList.toggle("open", showTip);
+      reviewPanel.classList.toggle("open", showReview);
+      tipPanel.hidden = !showTip;
+      reviewPanel.hidden = !showReview;
+      tipBtn.setAttribute("aria-pressed", showTip ? "true" : "false");
+      reviewBtn.setAttribute("aria-pressed", showReview ? "true" : "false");
+    }
+
+    tipBtn.addEventListener("click", function () {
+      showPanel(tipPanel.classList.contains("open") ? null : "tip");
+    });
+    reviewBtn.addEventListener("click", function () {
+      showPanel(reviewPanel.classList.contains("open") ? null : "review");
+    });
+
+    function renderTip() {
+      const handle = (VENMO_HANDLE || "").trim();
+      if (!handle) {
+        tipBody.innerHTML = '<p class="placeholder">Venmo handle coming soon</p>';
+        return;
+      }
+      const url = "https://venmo.com/u/" + encodeURIComponent(handle);
+      tipBody.innerHTML =
+        '<span class="handle">@' + handle.replace(/</g, "") + "</span>" +
+        '<div id="qr" aria-hidden="true"></div>' +
+        '<a class="btn" href="' + url + '" target="_blank" rel="noopener">Pay with Venmo</a>';
+      const qrMount = document.getElementById("qr");
+      try {
+        const qr = qrcode(0, "M");
+        qr.addData(url);
+        qr.make();
+        qrMount.innerHTML = qr.createSvgTag(0, 0);
+        const svg = qrMount.querySelector("svg");
+        if (svg) {
+          svg.setAttribute("width", "200");
+          svg.setAttribute("height", "200");
+          svg.removeAttribute("alt");
+        }
+      } catch (err) {
+        qrMount.textContent = "";
+      }
+    }
+
+    function showSuggestion() {
+      suggestionBox.hidden = false;
+      reviewTextEl.textContent = SUGGESTIONS[suggestionIndex];
+      copiedEl.textContent = "";
+    }
+
+    document.getElementById("use-suggestion").addEventListener("click", showSuggestion);
+    document.getElementById("another").addEventListener("click", function () {
+      suggestionIndex = (suggestionIndex + 1) % SUGGESTIONS.length;
+      showSuggestion();
+    });
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+      }
+      return new Promise(function (resolve, reject) {
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
+        document.body.appendChild(area);
+        area.select();
+        try {
+          const ok = document.execCommand("copy");
+          document.body.removeChild(area);
+          ok ? resolve() : reject(new Error("copy failed"));
+        } catch (err) {
+          document.body.removeChild(area);
+          reject(err);
+        }
+      });
+    }
+
+    document.getElementById("copy-open").addEventListener("click", function () {
+      const text = SUGGESTIONS[suggestionIndex];
+      copyText(text).then(function () {
+        copiedEl.textContent = "Copied — opening Google…";
+      }).catch(function () {
+        copiedEl.textContent = "Copy failed — the text is still above to copy by hand.";
+      }).finally(function () {
+        window.location.href = REVIEW_URL;
+      });
+    });
+
+    renderTip();
+  </script>
+</body>
+</html>
